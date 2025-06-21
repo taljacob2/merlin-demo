@@ -69,6 +69,16 @@ A Demo for [NVIDIA Merlin](https://developer.nvidia.com/merlin) - A framework fo
 ## Usage
 
 ```
+for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
+```
+
+> This mutes the non-fatal warnings of:
+> ```
+> 2025-03-22 12:25:38.494146: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+> ```
+> See https://github.com/tensorflow/tensorflow/issues/42738#issuecomment-922422874
+
+```
 docker run --gpus all --rm -it -p 8888:8888 -p 8797:8787 -p 8796:8786 --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
 ```
 
