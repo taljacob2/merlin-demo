@@ -6,6 +6,14 @@ A Demo for [NVIDIA Merlin](https://developer.nvidia.com/merlin) - A framework fo
 
 1. [NVIDIA GPU](https://developer.nvidia.com/cuda-gpus)
 
+1. Disable secure boot.
+
+   Verify the status of the secure boot with the following command:
+
+   ```
+   mokutil --sb-state
+   ```
+
 1. Install a supported container engine (Docker, Containerd, CRI-O, Podman).
 
    - **In this tutorial we will use [Docker](https://docs.docker.com/engine/install).**
