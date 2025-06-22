@@ -79,7 +79,7 @@ for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
 > See https://github.com/tensorflow/tensorflow/issues/42738#issuecomment-922422874
 
 ```
-docker run --gpus all --rm -it -p 8888:8888 -p 8797:8787 -p 8796:8786 --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
+docker run --name merlin --gpus all -d -it -p 8888:8888 -p 8797:8787 -p 8796:8786 --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
 ```
 
 View the jupyter notebook server at http://localhost:8888
