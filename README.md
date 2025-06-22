@@ -2,6 +2,8 @@
 
 A Demo for [NVIDIA Merlin](https://developer.nvidia.com/merlin) - A framework for training & serving Deep Learning Recommendation Models.
 
+<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*5B_s6eui101ctaHM.png" width="600">
+
 ## Prerequisites
 
 1. [NVIDIA GPU](https://developer.nvidia.com/cuda-gpus)
