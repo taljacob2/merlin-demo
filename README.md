@@ -90,3 +90,4 @@ View the jupyter notebook server at http://localhost:8888
 
 https://github.com/NVIDIA-Merlin/models/tree/main/examples
 
+https://github.com/NVIDIA-Merlin/Merlin/tree/main/examples
