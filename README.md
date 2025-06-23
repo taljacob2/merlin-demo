@@ -80,8 +80,10 @@ for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
 > ```
 > See https://github.com/tensorflow/tensorflow/issues/42738#issuecomment-922422874
 
+> NOTE: We set 8889 as optional port for "feast ui" in [02-Deploying-multi-stage-RecSys-with-Merlin-Systems.ipynb](Merlin/examples/Building-and-deploying-multi-stage-RecSys/02-Deploying-multi-stage-RecSys-with-Merlin-Systems.ipynb)
+
 ```
-docker run --name merlin --gpus all -d -it -p 8888:8888 -p 8797:8787 -p 8796:8786 -p 8000:8000 -p 8001:8001 -p 8002:8002 --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
+docker run --name merlin --gpus all -d -it -p 8888:8888 -p 8797:8787 -p 8796:8786 -p 8000:8000 -p 8001:8001 -p 8002:8002 -p 8889:8889 --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
 ```
 
 View the jupyter notebook server at http://localhost:8888
