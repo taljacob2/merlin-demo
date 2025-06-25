@@ -111,3 +111,5 @@ https://github.com/NVIDIA-Merlin/models/tree/main/examples
 https://github.com/NVIDIA-Merlin/Merlin/tree/main/examples
 
 https://github.com/redis-developer/redis-nvidia-recsys/tree/master/online-multi-stage-recsys
+
+https://github.com/redis-developer/redis-nvidia-recsys/blob/master/online-multi-stage-recsys/docker-compose.yml
