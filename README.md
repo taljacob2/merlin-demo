@@ -109,3 +109,5 @@ docker run --name merlin-serving [--gpus all] --restart=on-failure -d -it --net=
 https://github.com/NVIDIA-Merlin/models/tree/main/examples
 
 https://github.com/NVIDIA-Merlin/Merlin/tree/main/examples
+
+https://github.com/redis-developer/redis-nvidia-recsys/tree/master/online-multi-stage-recsys
