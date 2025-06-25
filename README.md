@@ -4,6 +4,8 @@ A Demo for [NVIDIA Merlin](https://developer.nvidia.com/merlin) - A framework fo
 
 <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*5B_s6eui101ctaHM.png" width="600">
 
+<img src="https://developer-blogs.nvidia.com/wp-content/uploads/2023/02/online-multi-stage-recommender-pipeline-1024x377.png" width="800">
+
 ## Prerequisites
 
 1. [NVIDIA GPU](https://developer.nvidia.com/cuda-gpus)
