@@ -89,7 +89,7 @@ for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
 If you want to use GPU(s) instead of CPU then add the `--gpus all` option:
 
 ```
-docker run --name merlin-training [--gpus all] -d -it -p 8888:8888 -p 8797:8787 -p 8796:8786 -p 8889:8889 -v $(pwd)/Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
+docker run --name merlin-training [--gpus all] -d -it --net=host -p 8888:8888 -p 8797:8787 -p 8796:8786 -p 8889:8889 -v $(pwd)/Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "cd / ; jupyter-lab --allow-root --ip='0.0.0.0' --NotebookApp.token=''"
 ```
 
 View the jupyter notebook server at http://localhost:8888
@@ -99,7 +99,7 @@ View the jupyter notebook server at http://localhost:8888
 If you want to use GPU(s) instead of CPU then add the `--gpus all` option:
 
 ```
-docker run --name merlin-serving [--gpus all] --restart=on-failure -d -it -p 8000:8000 -p 8001:8001 -p 8002:8002 -v $(pwd)/Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "pip install feast==0.31; tritonserver --model-repository=/Merlin/examples/Building-and-deploying-multi-stage-RecSys/poc_ensemble --backend-config=tensorflow,allow-soft-placement=true --model-control-mode=poll --repository-poll-secs=5"
+docker run --name merlin-serving [--gpus all] --restart=on-failure -d -it --net=host -p 8000:8000 -p 8001:8001 -p 8002:8002 -v $(pwd)/Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys --ipc=host --cap-add SYS_NICE nvcr.io/nvidia/merlin/merlin-tensorflow:23.12 /bin/bash -c "pip install feast==0.31; tritonserver --model-repository=/Merlin/examples/Building-and-deploying-multi-stage-RecSys/poc_ensemble --backend-config=tensorflow,allow-soft-placement=true --model-control-mode=poll --repository-poll-secs=5"
 ```
 
 ## Documentation
