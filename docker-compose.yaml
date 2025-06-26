@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  merlin-training:
+    image: nvcr.io/nvidia/merlin/merlin-tensorflow:23.12
+    container_name: merlin-training
+    command: >
+      /bin/bash -c "cd / && jupyter-lab --allow-root --ip=0.0.0.0 --NotebookApp.token=''"
+    ports:
+      - "8888:8888"   # JupyterLab
+      - "8797:8787"   # Dask scheduler (if you spin it up)
+      - "8796:8786"   # Dask worker
+      - "8889:8889"   # Optional: Feast UI
+    volumes:
+      # Bind-mount so you can edit files on the host and share them with both containers
+      - ./Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys
+    ipc: host
+    cap_add:
+      - SYS_NICE
+    networks:
+      app_subnet:
+        ipv4_address: 172.20.0.10
+    # Uncomment the next line if you have GPUs and the NVIDIA Container Toolkit
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]  # same as --gpus all
+
+  merlin-serving:
+    image: nvcr.io/nvidia/merlin/merlin-tensorflow:23.12
+    container_name: merlin-serving
+    command: >
+      /bin/bash -c "pip install feast==0.31 && tritonserver --model-repository=/Merlin/examples/Building-and-deploying-multi-stage-RecSys/poc_ensemble --backend-config=tensorflow,allow-soft-placement=true --model-control-mode=poll --repository-poll-secs=5"
+    ports:
+      - "8000:8000"   # HTTP/REST
+      - "8001:8001"   # gRPC
+      - "8002:8002"   # Metrics
+    volumes:
+      - ./Merlin/examples/Building-and-deploying-multi-stage-RecSys:/Merlin/examples/Building-and-deploying-multi-stage-RecSys
+    ipc: host
+    cap_add:
+      - SYS_NICE
+    restart: on-failure
+    networks:
+      app_subnet:
+        ipv4_address: 172.20.0.20
+    # Uncomment if you want GPU access
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]
+
+
+# No named volumes block is strictly necessary because we’re using a bind mount.
+networks:
+  app_subnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
